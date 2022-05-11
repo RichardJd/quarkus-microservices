@@ -1,0 +1,10 @@
+quarkus:
+  datasource:
+    url: jdbc:postgres://localhost:5432/postgres
+    driver: org.postgres.Driver
+    username: cadastro
+    password: cadastro
+  hibernate-orm:
+    database:
+      generation: update
+    dialect: org.hibernate.dialect.PostgreSQL14Dialect
