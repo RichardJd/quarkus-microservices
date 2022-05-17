@@ -1,4 +1,4 @@
-package br.com.rj.systems.ifood.cadastro;
+package br.com.rj.systems.ifood.cadastro.resource;
 
 import br.com.rj.systems.ifood.cadastro.dto.AddPlateDto;
 import br.com.rj.systems.ifood.cadastro.dto.AddRestaurantDto;
@@ -8,10 +8,17 @@ import br.com.rj.systems.ifood.cadastro.dto.RestaurantDto;
 import br.com.rj.systems.ifood.cadastro.dto.RestaurantMapper;
 import br.com.rj.systems.ifood.cadastro.dto.UpdatePlateDto;
 import br.com.rj.systems.ifood.cadastro.dto.UpdateRestaurantDto;
+import br.com.rj.systems.ifood.cadastro.infra.ConstraintViolationResponse;
+import br.com.rj.systems.ifood.cadastro.model.Plate;
+import br.com.rj.systems.ifood.cadastro.model.Restaurant;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -48,7 +55,9 @@ public class RestaurantResource {
 
     @POST
     @Transactional
-    public Response save(AddRestaurantDto dto) {
+    @APIResponse(responseCode = "201", description = "Caso restaurante seja cadastrado com sucesso")
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = ConstraintViolationResponse.class)))
+    public Response save(@Valid AddRestaurantDto dto) {
         final var restaurant = restaurantMapper.toRestaurant(dto);
         restaurant.persist();
         return Response.status(Response.Status.CREATED).build();

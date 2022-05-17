@@ -1,5 +1,6 @@
 package br.com.rj.systems.ifood.cadastro;
 
+import br.com.rj.systems.ifood.cadastro.model.Restaurant;
 import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
@@ -10,6 +11,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.approvaltests.JsonApprovals;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response;
@@ -50,6 +52,6 @@ class RestaurantResourceTest {
 
         Restaurant findById = Restaurant.findById(parameterValue);
 
-        Assert.assertEquals(dto.name, findById.name);
+        Assertions.assertEquals(dto.name, findById.name);
     }
 }

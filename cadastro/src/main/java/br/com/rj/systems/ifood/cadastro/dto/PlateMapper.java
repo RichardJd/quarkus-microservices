@@ -1,10 +1,10 @@
 package br.com.rj.systems.ifood.cadastro.dto;
 
-import br.com.rj.systems.ifood.cadastro.Plate;
+import br.com.rj.systems.ifood.cadastro.model.Plate;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "cdi", uses = RestaurantMapper.class)
 public interface PlateMapper {
 
     PlateDto toDto(Plate plate);
